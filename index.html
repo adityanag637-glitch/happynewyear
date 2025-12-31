@@ -3,24 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome ❤️🎉</title>
+<title>🎉 Happy New Year! ❤️</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff758c, #ff7eb3, #845ec2, #ffc75f);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite alternate;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: white;
     text-align: center;
     overflow: hidden;
-    position: relative;
+    background: linear-gradient(45deg, #ff758c, #ff7eb3, #845ec2, #ffc75f);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite alternate;
+    color: white;
 }
 
 @keyframes gradientShift {
@@ -32,7 +31,7 @@ body {
 h1 {
     font-size: 3em;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.6);
     animation: pop 1s ease infinite alternate;
 }
 
@@ -51,20 +50,20 @@ button {
     padding: 20px 50px;
     font-size: 1.5em;
     border: none;
-    border-radius: 40px;
+    border-radius: 50px;
     cursor: pointer;
-    background: #ff6b6b;
+    background: linear-gradient(45deg, #ff6b6b, #f9ca24);
     color: white;
     box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     transition: 0.3s;
+    position: relative;
 }
 
 button:hover {
-    background: #ff5252;
-    transform: scale(1.15) rotate(-2deg);
+    transform: scale(1.2) rotate(-3deg);
+    background: linear-gradient(45deg, #f9ca24, #ff6b6b);
 }
 
-/* ❤️ Floating hearts */
 .heart {
     position: fixed;
     bottom: -20px;
@@ -76,20 +75,42 @@ button:hover {
     to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
-/* 🎆 Fireworks */
-.firework {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+.confetti {
+    position: fixed;
     width: 10px;
     height: 10px;
-    pointer-events: none;
-    animation: explode 1s forwards;
+    background-color: #fff;
+    opacity: 0.8;
+    animation: confettiFall 4s linear infinite;
 }
 
-@keyframes explode {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(10); opacity: 0; }
+@keyframes confettiFall {
+    0% { transform: translateY(-10px) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.cursor-heart {
+    position: absolute;
+    font-size: 18px;
+    pointer-events: none;
+    animation: heartPop 0.8s forwards;
+}
+
+@keyframes heartPop {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-30px) scale(1.5); }
+}
+
+.shake {
+    animation: shakeAnim 0.5s;
+}
+
+@keyframes shakeAnim {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-5px,5px); }
+    50% { transform: translate(5px,-5px); }
+    75% { transform: translate(-5px,5px); }
+    100% { transform: translate(0,0); }
 }
 </style>
 </head>
@@ -97,8 +118,8 @@ button:hover {
 <body>
 
 <h1>🎉 Happy New Year! ❤️</h1>
-<p>Are you ready to play a little quiz and have some fun? 😏</p>
-<button onclick="startQuiz()">Start ➡</button>
+<p>Are you ready for a fun quiz and some surprises? 😏</p>
+<button id="startBtn">Start ➡</button>
 
 <script>
 /* Floating hearts */
@@ -112,20 +133,51 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 6000);
 }, 600);
 
-/* Firework effect */
-setInterval(() => {
-    const firework = document.createElement("div");
-    firework.className = "firework";
-    firework.style.left = Math.random() * window.innerWidth + "px";
-    firework.style.top = Math.random() * window.innerHeight / 2 + "px";
-    document.body.appendChild(firework);
-    setTimeout(() => firework.remove(), 1000);
-}, 800);
-
-/* Start quiz button */
-function startQuiz() {
-    window.location.href = "hp.html"; // <-- Link to your main quiz page
+/* Confetti */
+for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDelay = Math.random() * 4 + "s";
+    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 70%)`;
+    document.body.appendChild(confetti);
 }
+
+/* Cursor-following hearts */
+document.addEventListener("mousemove", e => {
+    const heart = document.createElement("div");
+    heart.className = "cursor-heart";
+    heart.innerHTML = "💖";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 800);
+});
+
+/* Start button prank */
+const startBtn = document.getElementById("startBtn");
+let prankDuration = 10000; // 10 seconds
+let prankInterval = setInterval(() => {
+    startBtn.style.position = "absolute";
+    startBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+    startBtn.style.left = Math.random() * (window.innerWidth - 200) + "px";
+    document.body.classList.add("shake");
+    setTimeout(() => document.body.classList.remove("shake"), 500);
+}, 500);
+
+/* Stop prank after 10 seconds and freeze button in center */
+setTimeout(() => {
+    clearInterval(prankInterval);
+    startBtn.style.position = "fixed";
+    startBtn.style.top = "50%";
+    startBtn.style.left = "50%";
+    startBtn.style.transform = "translate(-50%, -50%)";
+}, prankDuration);
+
+/* Clicking button goes to main page */
+startBtn.addEventListener("click", () => {
+    window.location.href = "hp.html";
+});
 </script>
 
 </body>
