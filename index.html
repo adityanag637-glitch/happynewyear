@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome ❤️🎉</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(45deg, #ff758c, #ff7eb3, #845ec2, #ffc75f);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite alternate;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    animation: pop 1s ease infinite alternate;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+p {
+    font-size: 1.5em;
+    margin-bottom: 50px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+button {
+    padding: 20px 50px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    background: #ff6b6b;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff5252;
+    transform: scale(1.15) rotate(-2deg);
+}
+
+/* ❤️ Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* 🎆 Fireworks */
+.firework {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    animation: explode 1s forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(10); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy New Year! ❤️</h1>
+<p>Are you ready to play a little quiz and have some fun? 😏</p>
+<button onclick="startQuiz()">Start ➡</button>
+
+<script>
+/* Floating hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 600);
+
+/* Firework effect */
+setInterval(() => {
+    const firework = document.createElement("div");
+    firework.className = "firework";
+    firework.style.left = Math.random() * window.innerWidth + "px";
+    firework.style.top = Math.random() * window.innerHeight / 2 + "px";
+    document.body.appendChild(firework);
+    setTimeout(() => firework.remove(), 1000);
+}, 800);
+
+/* Start quiz button */
+function startQuiz() {
+    window.location.href = "hp.html"; // <-- Link to your main quiz page
+}
+</script>
+
+</body>
+</html>
